@@ -5,23 +5,25 @@
 
 #define MAXSIZE 1024
 
-void encrypt(char * str, int shift);
+void encrypt(char * str, int key);
+void decrypt(char * str, int key);
+
 
 int main(int argc, char const *argv[])
 {
 	char plaintext[] = "attack at dawn";
+	char ciphertext[] = "fyyfhp fy ifbs";
 
 	int i = 0;
 
-	printf("%s\n", plaintext);
-
 	encrypt(plaintext, 5);
+	decrypt(ciphertext,5);
 
 
 	return 0;
 }
 
-void encrypt(char * str, int shift) {
+void encrypt(char * str, int key) {
 
 	int i = 0;
 	int diff = 0;
@@ -36,12 +38,11 @@ void encrypt(char * str, int shift) {
 		if(*ptr == ' ')
 			ciphertext[i] = *ptr;
 		else
-			ciphertext[i] = (*ptr + (char)shift);
+			ciphertext[i] = (*ptr + (char)key);
 
 		if(ciphertext[i] > 122)
 		{
 			diff = ciphertext[i] - 122 - 1;
-			printf("%d\n", diff);
 			ciphertext[i]  = (char)alphaStart + (char)diff;
 		}
 
@@ -50,5 +51,38 @@ void encrypt(char * str, int shift) {
 	}
 	ciphertext[i++] = '\0';
 
-	puts(ciphertext);
+	printf("%s\n", ciphertext);
+}
+
+void decrypt(char * str, int key)
+{
+	int i = 0;
+	int alphaStart = 122;
+	int diff = 0;
+	char *ptr = str;
+	char plaintext[MAXSIZE];
+
+	while(*ptr)
+	{
+		tolower(*ptr);
+
+		if(*ptr == ' ')
+		{
+			plaintext[i] = *ptr;
+		}
+		else
+			plaintext[i] = (*ptr - (char)key);
+
+		if(plaintext[i] < 97 && plaintext[i] != 32)
+		{
+			diff = 97 - plaintext[i] - 1;
+			plaintext[i] = (char)alphaStart - (char)diff;
+		}
+		i++;
+		ptr++;
+	}
+
+	plaintext[i++] = '\0';
+
+	printf("%s\n", plaintext);
 }
