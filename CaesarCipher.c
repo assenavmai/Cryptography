@@ -11,13 +11,37 @@ void decrypt(char * str, int key);
 
 int main(int argc, char const *argv[])
 {
-	char plaintext[] = "attack at dawn";
-	char ciphertext[] = "fyyfhp fy ifbs";
+	char input[5];
+	char keystr[100];
+	char plaintext[MAXSIZE];
+	char ciphertext[MAXSIZE];
+	int key = 0;
 
 	int i = 0;
+	do
+	{
+		printf("Enter (e)ncrption (d)ecryption or (q)uit: ");
+		fgets(input, 5, stdin);
+		input[strlen(input) - 1] = '\0';
 
-	encrypt(plaintext, 5);
-	decrypt(ciphertext,5);
+		if(strcmp(input, "e") == 0)
+		{
+			printf("Enter your plaintext: ");
+			fgets(plaintext, MAXSIZE, stdin);
+
+			printf("Enter the key: ");
+			fgets(keystr, 100, stdin);
+
+			key = atoi(keystr);
+			encrypt(plaintext, key);
+		}
+		else if(strcmp(input, "d") == 0)
+		{
+			printf("Enter your ciphertext: ");
+			fgets(ciphertext, MAXSIZE, stdin);
+			decrypt(ciphertext, key);
+		}
+	}while(strcmp(input, "q") != 0);
 
 
 	return 0;
