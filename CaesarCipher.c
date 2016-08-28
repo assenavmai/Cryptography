@@ -1,3 +1,10 @@
+/****
+Written by Vanessa White, August 2016.
+
+Simple caesar cipher program. This is by no means the best program, something I made quickly 
+to practice pointer arithmetic and encryption/decryption in C.
+
+****/
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
